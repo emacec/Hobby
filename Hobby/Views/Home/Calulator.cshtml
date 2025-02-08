@@ -1,0 +1,57 @@
+﻿
+
+@{
+    ViewData["Title"] = "Dog Walking Service Calculator";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <h1 class="text-center">Dog Walking Service Price Calculator</h1>
+
+    <div class="form-group">
+        <label for="hoursInput">Enter the number of hours you need:</label>
+        <input type="number" id="hoursInput" class="form-control" placeholder="Enter hours" />
+    </div>
+
+    <div class="form-group">
+        <label for="rate">Charge per hour:</label>
+        <input type="text" id="rate" class="form-control" value="25" readonly />
+    </div>
+
+    <div class="form-group">
+        <button id="calculateBtn" class="btn btn-primary">Calculate Total</button>
+    </div>
+
+    <div class="form-group">
+        <label for="totalOutput">Total Charge:</label>
+        <input type="text" id="totalOutput" class="form-control" readonly />
+    </div>
+
+    <!-- Navigation link back to Home -->
+    <div class="text-center mt-3">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Calculate button is clicked
+            $("#calculateBtn").click(function () {
+                var hours = parseFloat($("#hoursInput").val()); // Get the number of hours entered
+                var rate = parseFloat($("#rate").val()); // Get the charge per hour (always 25 in this case)
+
+                // Validate input
+                if (isNaN(hours) || hours <= 0) {
+                    alert("Please enter a valid positive number for hours.");
+                    $("#totalOutput").val(""); // Clear the total if invalid input
+                } else {
+                    var total = hours * rate; // Calculate total charge
+                    $("#totalOutput").val("$" + total.toFixed(2)); // Display the result, formatted as currency
+                }
+            });
+        });
+    </script>
+}
